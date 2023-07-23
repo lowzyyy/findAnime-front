@@ -1,0 +1,43 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Nice website to search for anime!" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header
+      class="h-14 max-w-full bg-gradient-to-r from-indigo-500 from-20% via-sky-500 to-indigo-500"
+    >
+      <div
+        class="mx-auto flex h-full max-w-[94%] items-center xs:max-w-[90%] xl:max-w-[70%]"
+      >
+        <span class="text-3xl font-bold text-white xl:text-4xl">FindAnime</span>
+      </div>
+    </header>
+    <main class="mx-auto max-w-[94%] xs:max-w-[90%] xl:max-w-[70%]">
+      <slot />
+    </main>
+  </body>
+</html>
+<style is:global>
+  :root {
+    --accent: 124, 58, 237;
+    --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+
+    --season-card-max: 208px;
+    --season-card-min: 150px;
+    --season-genre-max: 105px;
+  }
+</style>

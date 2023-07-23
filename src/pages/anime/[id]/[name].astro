@@ -1,0 +1,6 @@
+---
+import { removeUnderscore } from "../../../helpers/globalHelpers";
+const { id, name } = Astro.params;
+---
+
+<p>{id}{" "}{removeUnderscore(name)}</p>

@@ -1,0 +1,8 @@
+---
+import Layout from "@layouts/Layout.astro";
+const { genreName, id } = Astro.params;
+---
+
+<Layout title={`${genreName} anime`}>
+  <p>{genreName}</p>
+</Layout>
