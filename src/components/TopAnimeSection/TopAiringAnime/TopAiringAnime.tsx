@@ -6,7 +6,7 @@ import { membersFormat } from "../../../helpers/globalHelpers";
 function TopAnime({ topAnime, title }: { topAnime: IAnime[]; title: string }) {
   const linkPart = title.toLowerCase().split(" ").join("-");
   return (
-    <div className="rounded-sm border-l-[1px] border-r-[1px] border-slate-600 xs:border-r-0">
+    <div className="rounded-sm border-l-[1px]  border-slate-600 ">
       <div className="flex  w-full items-center justify-between  bg-indigo-300 p-2 xs:rounded-e-md">
         <span className="text-lg">{title}</span>
         <a className="text-blue-700 hover:underline" href={`/topanime/${linkPart}`}>
