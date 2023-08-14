@@ -57,12 +57,18 @@ export interface IAnime {
   background: string | null;
   season: "summer" | "winter" | "spring" | "fall" | null;
   year: number | null;
-  studios: { mal_id: number; name: string; url: string; type: string };
-  genres: (Omit<IGenre, "count"> & { type: string })[];
-  explicit_genres: (Omit<IGenre, "count"> & { type: string })[];
-  themes: (Omit<IGenre, "count"> & { type: string })[];
-  demographics: (Omit<IGenre, "count"> & { type: string })[];
+  broadcast: { day: string; timezone: string; time: string; string: string };
+  source: string | null;
+  studios: { mal_id: number; name: string; url: string; type: string }[];
+  licensors: OmittedGenre[];
+  producers: OmittedGenre[];
+  genres: OmittedGenre[];
+  explicit_genres: OmittedGenre[];
+  themes: OmittedGenre[];
+  demographics: OmittedGenre[];
 }
+
+export type OmittedGenre = Omit<IGenre, "count"> & { type: string };
 
 export interface IPagination {
   last_visible_page: number;
@@ -76,7 +82,7 @@ export interface IPagination {
 }
 
 export interface IAnimeObj {
-  pagination?: IPagination;
+  pagination: IPagination;
   data: IAnime[];
 }
 
@@ -84,4 +90,24 @@ export interface ITopAnime {
   topAiring: IAnimeObj;
   topUpcoming: IAnimeObj;
   mostPopular: IAnimeObj;
+}
+
+export type TNav = "multiple" | "genre" | "category" | "seasonnow";
+
+export type TCategory = "airing" | "upcoming" | "bypopularity";
+
+type Character = {
+  mal_id: number;
+  url: string;
+  images: {
+    jpg: { image_url: string | null; small_image_url: string | null };
+    webp: { image_url: string | null; small_image_url: string | null };
+  };
+  name: string;
+};
+
+export interface CharacterInfo {
+  character: Character;
+  role: string;
+  voice_actors: { person: Character; language: string }[];
 }

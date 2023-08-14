@@ -1,0 +1,54 @@
+---
+import "@fontsource-variable/rubik";
+import Layout from "../../../../layouts/Layout.astro";
+import { checkPageAndRedirect } from "@helpers/globalHelpers";
+import { getAnimeFromGenre } from "@helpers/genreId/getAnimeFromGenre";
+import { getSeasonNowName } from "@helpers/globalHelpers";
+
+import GenreNameHeader from "@components/GenreNameHeader/GenreNameHeader";
+import AnimeList from "@components/AnimeList/AnimeList";
+
+const { page } = Astro.params;
+
+const API = "https://api.jikan.moe/v4/seasons/now";
+
+let currentPage = parseInt(page!!);
+if (checkPageAndRedirect(true, page)) {
+  return Astro.redirect(`/anime/season/1?${Astro.url.search}`);
+}
+
+const allAnimeFromGenre = await getAnimeFromGenre(
+  null,
+  API,
+  currentPage,
+  Astro.url.searchParams,
+  "seasonnow"
+);
+const maxPage = allAnimeFromGenre?.pagination.last_visible_page;
+
+if (checkPageAndRedirect(false, page, maxPage)) {
+  return Astro.redirect(`/anime/season/${maxPage}?${Astro.url.search}`);
+}
+---
+
+<Layout title="Anime by season">
+  {
+    allAnimeFromGenre && (
+      <GenreNameHeader>{getSeasonNowName() + " anime"}</GenreNameHeader>
+    )
+  }
+  {
+    allAnimeFromGenre ? (
+      <AnimeList
+        client:load
+        navType="seasonnow"
+        url={Astro.url}
+        anime={allAnimeFromGenre.data}
+        pagination={allAnimeFromGenre.pagination}
+        params={Astro.params}
+      />
+    ) : (
+      <p>Cannot get anime from genre!</p>
+    )
+  }
+</Layout>

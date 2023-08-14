@@ -1,0 +1,81 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+import { getAnimeFromGenre } from "@helpers/genreId/getAnimeFromGenre";
+import {
+  checkPageAndRedirect,
+  isNumber,
+  removeUnderscore,
+} from "@helpers/globalHelpers";
+
+import AnimeList from "@components/AnimeList/AnimeList";
+import GenreNameHeader from "@components/GenreNameHeader/GenreNameHeader";
+import "@fontsource-variable/rubik";
+
+const API = "https://api.jikan.moe/v4/anime";
+
+const { genreName, id, page } = Astro.params;
+
+let currentPage = parseInt(page!!);
+
+if (checkPageAndRedirect(true, page)) {
+  return Astro.redirect(`/anime/genre/${id}/${genreName}/1`);
+}
+
+const allAnimeFromGenre = await getAnimeFromGenre(
+  parseInt(id!!),
+  API,
+  currentPage,
+  Astro.url.searchParams
+);
+const maxPage = allAnimeFromGenre?.pagination.last_visible_page;
+
+if (checkPageAndRedirect(false, page, maxPage)) {
+  return Astro.redirect(`/anime/genre/${id}/${genreName}/${maxPage}`);
+}
+let genreNameNoUnderscore = removeUnderscore(genreName);
+---
+
+<Layout title={`${genreNameNoUnderscore} anime`}>
+  {
+    allAnimeFromGenre && (
+      <GenreNameHeader>{genreNameNoUnderscore}</GenreNameHeader>
+    )
+  }
+  {
+    allAnimeFromGenre ? (
+      <AnimeList
+        client:load
+        navType={"genre"}
+        url={Astro.url}
+        anime={allAnimeFromGenre.data}
+        pagination={allAnimeFromGenre.pagination}
+        params={Astro.params}
+      />
+    ) : (
+      <p>Cannot get anime from genre!</p>
+    )
+  }
+</Layout>
+
+<style is:global>
+  .genresAnimeItem {
+    scrollbar-width: none;
+  }
+  ul,
+  div::-webkit-scrollbar {
+    display: none;
+  }
+
+  div.genresAnimeItem {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+  }
+  select {
+    -webkit-appearance: none;
+  }
+</style>

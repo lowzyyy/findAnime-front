@@ -1,6 +1,38 @@
 ---
+import Layout from "@layouts/Layout.astro";
+
+import { getAnimeDetails } from "@helpers/animeId/getAnimeDetails";
+import { getAnimeCharacters } from "@helpers/animeId/getAnimeCharacters";
 import { removeUnderscore } from "../../../helpers/globalHelpers";
+
+import AnimeCard from "@components/AnimeCard/AnimeCard";
+import "@fontsource-variable/rubik";
+import CharactersList from "@components/AnimeCard/Characters/CharactersList";
+
+const API = "https://api.jikan.moe/v4/anime";
+
 const { id, name } = Astro.params;
+const animeDetails = await getAnimeDetails(parseInt(id!!), API);
+const animeCharacters = await getAnimeCharacters(+id!);
+
+const animeName = removeUnderscore(name);
+
+const alternativeName = animeDetails?.titles.find(
+  (el) => el.type === "English"
+)?.title;
 ---
 
-<p>{id}{" "}{removeUnderscore(name)}</p>
+<Layout title={`${animeName}`} layoutType={"animecard"}>
+  {
+    animeDetails && animeCharacters && (
+      <AnimeCard
+        client:load
+        url={Astro.url}
+        name={animeName}
+        alternativeName={alternativeName}
+        details={animeDetails}
+        characters={animeCharacters}
+      />
+    )
+  }
+</Layout>

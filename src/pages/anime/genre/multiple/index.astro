@@ -1,0 +1,11 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+const { page } = Astro.params;
+
+if (!page) {
+  return Astro.redirect(`/anime/genre/multiple/1${Astro.url.search}`);
+}
+---
+
+<Layout title="Anime genre search" />

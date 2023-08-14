@@ -1,0 +1,10 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import "@fontsource-variable/rubik";
+const { page } = Astro.params;
+if (!page) {
+  return Astro.redirect(`/anime/season/1`);
+}
+---
+
+<Layout title="Anime by season" />

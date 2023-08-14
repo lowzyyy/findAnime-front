@@ -1,7 +1,7 @@
 import React from "react";
 import type { IAnime, IAnimeObj } from "../../../helpers/types/types";
 import { StarIcon, UserIcon } from "@heroicons/react/20/solid";
-import { membersFormat } from "../../../helpers/globalHelpers";
+import { formatNumbers } from "../../../helpers/globalHelpers";
 
 function TopAnime({ topAnime, title }: { topAnime: IAnime[]; title: string }) {
   const linkPart = title.toLowerCase().split(" ").join("-");
@@ -9,7 +9,10 @@ function TopAnime({ topAnime, title }: { topAnime: IAnime[]; title: string }) {
     <div className="rounded-sm border-l-[1px]  border-slate-600 ">
       <div className="flex  w-full items-center justify-between  bg-indigo-300 p-2 xs:rounded-e-md">
         <span className="text-lg">{title}</span>
-        <a className="text-blue-700 hover:underline" href={`/topanime/${linkPart}`}>
+        <a
+          className="text-blue-700 hover:underline"
+          href={`/topanime/${linkPart}`}
+        >
           More
         </a>
       </div>
@@ -29,13 +32,19 @@ function TopAnime({ topAnime, title }: { topAnime: IAnime[]; title: string }) {
                 className={`h-20 w-16 shrink-0 transition-all hover:scale-105`}
               >
                 <a
-                  href={`anime/${el.mal_id}/${el.titles[0].title.replaceAll(" ", "_")}`}
+                  href={`anime/${el.mal_id}/${el.titles[0].title.replaceAll(
+                    " ",
+                    "_"
+                  )}`}
                   className="block h-full"
                 ></a>
               </div>
               <div className="flex w-full flex-col justify-between">
                 <a
-                  href={`anime/${el.mal_id}/${el.titles[0].title.replaceAll(" ", "_")}`}
+                  href={`anime/${el.mal_id}/${el.titles[0].title.replaceAll(
+                    " ",
+                    "_"
+                  )}`}
                   className=" leading-5 text-blue-950 hover:text-blue-700 hover:underline "
                 >
                   {el.titles[0].title}
@@ -48,7 +57,7 @@ function TopAnime({ topAnime, title }: { topAnime: IAnime[]; title: string }) {
                     </div>
                   )}
                   <div title="Members" className="flex">
-                    {membersFormat(el.members)}
+                    {formatNumbers(el.members)}
                     <UserIcon className="h-5 text-fuchsia-300" />
                   </div>
                 </div>

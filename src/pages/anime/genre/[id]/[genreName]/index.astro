@@ -1,0 +1,6 @@
+---
+const { genreName, id, page } = Astro.params;
+if (!page) {
+  return Astro.redirect(`/anime/genre/${id}/${genreName}/1`);
+}
+---

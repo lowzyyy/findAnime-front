@@ -15,7 +15,7 @@
     "@astrojs/vercel": "^3.7.4",
     "@fontsource-variable/rubik": "^5.0.7",
     "@heroicons/react": "^2.0.18",
-    "astro": "^2.9.1",
+    "astro": "^2.9.7",
     "axios": "^1.4.0",
     "crypto-random-string": "^5.0.0",
     "react": "^18.2.0",

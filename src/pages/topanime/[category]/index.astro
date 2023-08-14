@@ -1,0 +1,11 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+const { page, category } = Astro.params;
+
+if (!page) {
+  return Astro.redirect(`/topanime/${category}/1`);
+}
+---
+
+<Layout title={`${category}`} />

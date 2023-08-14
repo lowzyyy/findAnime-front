@@ -1,0 +1,64 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+import { isNumber, myAPI } from "@helpers/globalHelpers";
+import { getAnimeFromGenre } from "@helpers/genreId/getAnimeFromGenre";
+import { getGenreNames } from "@helpers/genreId/getGenreNames";
+import { checkPageAndRedirect } from "@helpers/globalHelpers";
+
+import AnimeList from "@components/AnimeList/AnimeList";
+import GenreNameHeader from "@components/GenreNameHeader/GenreNameHeader";
+
+import "@fontsource-variable/rubik";
+
+const API = "https://api.jikan.moe/v4/anime";
+
+const { page } = Astro.params;
+
+let currentPage = parseInt(page!!);
+if (checkPageAndRedirect(true, page)) {
+  return Astro.redirect(`/anime/genre/multiple/1?${Astro.url.search}`);
+}
+
+const allAnimeFromGenres = await getAnimeFromGenre(
+  Astro.url.searchParams.getAll("genres")[0],
+  API,
+  currentPage,
+  Astro.url.searchParams
+);
+const maxPage = allAnimeFromGenres?.pagination.last_visible_page;
+
+if (checkPageAndRedirect(false, page, maxPage)) {
+  return Astro.redirect(`/anime/genre/multiple/${maxPage}?${Astro.url.search}`);
+}
+
+const genreNames = await getGenreNames(
+  Astro.url.searchParams.getAll("genres")[0],
+  myAPI
+);
+---
+
+<Layout title="Anime genre">
+  {
+    allAnimeFromGenres && (
+      <GenreNameHeader>{[...genreNames].join("-")}</GenreNameHeader>
+    )
+  }
+
+  {
+    allAnimeFromGenres && allAnimeFromGenres.data.length > 0 ? (
+      <AnimeList
+        client:load
+        navType={"multiple"}
+        url={Astro.url}
+        anime={allAnimeFromGenres.data}
+        pagination={allAnimeFromGenres.pagination}
+        params={Astro.params}
+      />
+    ) : allAnimeFromGenres && allAnimeFromGenres.data.length === 0 ? (
+      <p class="mt-2 text-2xl font-semibold">No results!</p>
+    ) : (
+      <p>Cannot get anime from genres!</p>
+    )
+  }
+</Layout>

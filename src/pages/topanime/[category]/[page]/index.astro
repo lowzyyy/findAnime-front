@@ -1,0 +1,53 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getAnimeFromGenre } from "@helpers/genreId/getAnimeFromGenre";
+import { isNumber, formatCategory } from "@helpers/globalHelpers";
+import type { TCategory } from "@helpers/types/types";
+import AnimeList from "@components/AnimeList/AnimeList";
+
+import "@fontsource-variable/rubik";
+import GenreNameHeader from "@components/GenreNameHeader/GenreNameHeader";
+
+const { category, page } = Astro.params;
+
+const API = "https://api.jikan.moe/v4/top/anime";
+
+let currentPage = parseInt(page!!);
+if ((isNumber(page!!) && currentPage < 1) || !isNumber(page!!)) {
+  return Astro.redirect(`/topanime/${category}/1`);
+}
+const allAnimeFromGenre = await getAnimeFromGenre(
+  null,
+  API,
+  currentPage,
+  Astro.url.searchParams,
+  formatCategory(category) as TCategory
+);
+const maxPage = allAnimeFromGenre?.pagination.last_visible_page;
+
+if (isNumber(page!!) && maxPage && currentPage > maxPage) {
+  return Astro.redirect(`/topanime/${category}/maxPage`);
+}
+let categoryName = category!.replace("-", " ");
+categoryName = categoryName[0].toUpperCase() + categoryName.slice(1);
+---
+
+<Layout title={`${category} anime`}>
+  <GenreNameHeader>
+    {categoryName}
+  </GenreNameHeader>
+  {
+    allAnimeFromGenre ? (
+      <AnimeList
+        client:load
+        navType={"category"}
+        url={Astro.url}
+        anime={allAnimeFromGenre.data}
+        pagination={allAnimeFromGenre.pagination}
+        params={Astro.params}
+      />
+    ) : (
+      <p>Cannot get anime from genre!</p>
+    )
+  }
+</Layout>

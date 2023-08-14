@@ -2,21 +2,18 @@
 import Layout from "@layouts/Layout.astro";
 import GenreList from "@components/GenreList/GenreList";
 import SeasonalAnimeCarousel from "@components/SeasonalAnime/SeasonAnimeCarousel";
-import TopAnime from "@components/TopAnimeSection/TopAiringAnime/TopAiringAnime";
+import TopAnime from "@components/TopAnimeSection/TopAnime/TopAnime";
 import TopAnimeSection from "@components/TopAnimeSection/TopAnimeSection";
 
 import { fetchAnimeGenres } from "../helpers/index/fetchGenres";
 import { fetchSeasonalAnime } from "../helpers/index/fetchSeasonalAnime";
 import { fetchTopAnime } from "../helpers/index/fetchTopAnime";
 import "@fontsource-variable/rubik";
+import { myAPI } from "@helpers/globalHelpers";
 
-// const API = "http://127.0.0.1:3103";
-const API = "https://findanime.up.railway.app";
-
-// const API =await getApi()
-const allGenre = await fetchAnimeGenres(API);
-const seasonalAnime = await fetchSeasonalAnime(API);
-const allTopAnime = await fetchTopAnime(API);
+const allGenre = await fetchAnimeGenres(myAPI);
+const seasonalAnime = await fetchSeasonalAnime(myAPI);
+const allTopAnime = await fetchTopAnime(myAPI);
 ---
 
 <Layout title="Welcome to FindAnime!">
@@ -38,8 +35,14 @@ const allTopAnime = await fetchTopAnime(API);
     allTopAnime ? (
       <TopAnimeSection>
         <TopAnime title="Top Airing" topAnime={allTopAnime.topAiring.data} />
-        <TopAnime title="Top Upcoming" topAnime={allTopAnime.topUpcoming.data} />
-        <TopAnime title="Most Popular" topAnime={allTopAnime.mostPopular.data} />
+        <TopAnime
+          title="Top Upcoming"
+          topAnime={allTopAnime.topUpcoming.data}
+        />
+        <TopAnime
+          title="Most Popular"
+          topAnime={allTopAnime.mostPopular.data}
+        />
       </TopAnimeSection>
     ) : (
       <p>Cannot get top anime!</p>

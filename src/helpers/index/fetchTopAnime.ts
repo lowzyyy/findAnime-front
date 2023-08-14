@@ -1,19 +1,16 @@
 import axios, { AxiosError } from "axios";
 import type { ITopAnime } from "../types/types";
+import { checkAxiosError } from "@helpers/globalHelpers";
 
 export const fetchTopAnime = async (APIbase: string) => {
   try {
-    const response = await axios.get<ITopAnime>(`${APIbase}/topanime?all=true`, {
+    const response = await axios.get<ITopAnime | null>(`${APIbase}/topanime?all=true`, {
       timeout: 1500,
     });
     const data = response.data;
     return data;
   } catch (error) {
-    if (error instanceof AxiosError) console.log(`Error occurred: ${error.message}`);
-    return {
-      topAiring: { data: [] },
-      topUpcoming: { data: [] },
-      mostPopular: { data: [] },
-    };
+    checkAxiosError(error, "GET TOP ANIME");
+    return null;
   }
 };
