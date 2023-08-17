@@ -14,7 +14,7 @@ function TopSection({ details, url }: Props) {
         href={`${url.origin}/anime/${details.mal_id}/${addUnderscore(
           details.titles[0].title
         )}`}
-        className="mb-1 flex min-h-[50px] items-center justify-center border-b border-slate-500 bg-gray-100 pb-1  text-lg leading-6"
+        className="mb-1 flex min-h-[50px] items-center justify-center border-b border-slate-500 bg-gray-100 pb-1  text-lg leading-6 "
       >
         {details.titles[0].title}
       </a>

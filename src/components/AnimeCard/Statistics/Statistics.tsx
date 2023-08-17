@@ -10,7 +10,7 @@ function Statistics({ details }: Props) {
   const favourites = formatNumbers(details.favorites);
   const scoredby = formatNumbers(details.scored_by);
   return (
-    <div className="flex w-full justify-between rounded-sm bg-slate-50 shadow-sm shadow-gray-400">
+    <div className="grid w-full grid-cols-2 rounded-sm bg-slate-50 shadow-sm shadow-gray-400 md:flex md:justify-between">
       <StatItem
         upperPart={"Score"}
         lowerPart={"" + (details.score ?? "-")}

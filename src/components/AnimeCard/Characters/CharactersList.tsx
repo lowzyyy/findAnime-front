@@ -6,7 +6,7 @@ type Props = { characters: CharacterInfo[]; id: number; name: string };
 
 function CharactersList({ characters, id, name }: Props) {
   return (
-    <div>
+    <div className="">
       <div className="my-2 flex justify-between">
         <span>Characters</span>
         <a
