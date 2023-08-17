@@ -31,7 +31,7 @@ const SubListItem = ({ genre, multiple, addSelected }: Props) => {
       <a
         onClick={onGenre}
         href={`anime/genre/${genre.mal_id}/${addUnderscore(genre.name)}`}
-        className=" cursor-pointer rounded-md p-1 text-blue-600 hover:bg-gradient-to-tr hover:from-indigo-400 hover:to-indigo-500 hover:text-white  xl:text-sky-700"
+        className=" cursor-pointer rounded-md p-1 text-blue-600 hover:bg-gradient-to-tr hover:to-indigo-500 hover:text-white xl:text-sky-700  xl:hover:from-indigo-400"
       >
         <span className="text-sm xs:text-base">{genre.name}</span>{" "}
         <span className="text-xs xs:text-base ">({genre.count})</span>

@@ -84,7 +84,7 @@ function AnimeCard({ name, alternativeName, details, characters, url }: Props) {
           }}
           className="absolute top-0 flex h-full w-full justify-center bg-black bg-opacity-20 backdrop-blur-sm"
         >
-          <div className="w-[95%] translate-y-[30%] self-start rounded-sm bg-white p-3">
+          <div className="w-[95%] translate-y-[20%] self-start rounded-sm bg-white p-3">
             <Information details={details} url={url}></Information>
           </div>
         </div>
