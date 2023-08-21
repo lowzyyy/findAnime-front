@@ -26,7 +26,10 @@ function CarouselNavigation({
         >
           <ChevronDoubleRightIcon className="h-14 w-7"></ChevronDoubleRightIcon>
         </button>
-        <button className="" onClick={() => (carouselRef.current!.scrollLeft -= 200)}>
+        <button
+          className=""
+          onClick={() => (carouselRef.current!.scrollLeft -= 200)}
+        >
           <ChevronLeftIcon className="h-14 w-7"></ChevronLeftIcon>
         </button>
       </div>
@@ -41,7 +44,10 @@ function CarouselNavigation({
         >
           <ChevronDoubleLeftIcon className="h-14 w-7"></ChevronDoubleLeftIcon>
         </button>
-        <button className="" onClick={() => (carouselRef.current!.scrollLeft += 200)}>
+        <button
+          className=""
+          onClick={() => (carouselRef.current!.scrollLeft += 200)}
+        >
           <ChevronRightIcon className="h-14 w-7"></ChevronRightIcon>
         </button>
       </div>

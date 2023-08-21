@@ -82,7 +82,7 @@ function AnimeCard({ name, alternativeName, details, characters, url }: Props) {
           onClick={(e: any) => {
             if (e.currentTarget === e.target) setShowInfo(false);
           }}
-          className="absolute top-0 flex h-full w-full justify-center bg-black bg-opacity-20 backdrop-blur-sm"
+          className="absolute top-0 flex h-screen w-full justify-center bg-black bg-opacity-20 backdrop-blur-sm"
         >
           <div className="w-[95%] translate-y-[20%] self-start rounded-sm bg-white p-3">
             <Information details={details} url={url}></Information>

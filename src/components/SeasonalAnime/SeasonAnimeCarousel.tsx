@@ -16,7 +16,7 @@ function SeasonAnimeCarousel({ seasonalAnime }: { seasonalAnime: IAnime[] }) {
     <div
       onMouseOver={() => setShowNav(true)}
       onMouseLeave={() => setShowNav(false)}
-      className="relative mt-6 border-none border-red-500  "
+      className="relative  mt-6 border-none border-red-500  "
     >
       <p className="flex items-center justify-between  text-slate-800">
         <span className="flex flex-col font-medium xs:flex-row xs:items-center xs:gap-2">
