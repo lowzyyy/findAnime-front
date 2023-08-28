@@ -11,7 +11,10 @@ type Props = {
 
 function Results({ data, isLoading, urlOrigin, error }: Props) {
   return (
-    <div className="flex  max-h-[600px] w-full flex-col overflow-y-scroll bg-white sm:absolute sm:left-0   md:gap-1">
+    <div
+      id="search-results"
+      className="flex  max-h-[600px] w-full flex-col overflow-y-scroll bg-white sm:absolute sm:left-0   md:gap-1"
+    >
       {!isLoading && data && data?.data.length > 0 && (
         <p className="bg-gray-300">Results</p>
       )}

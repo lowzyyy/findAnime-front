@@ -6,6 +6,7 @@ import type { IAnimeObj } from "@helpers/types/types";
 import { addUnderscore } from "@helpers/globalHelpers";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Results from "./Results";
+import useHideGlobal from "./useHideGlobal";
 type Props = {
   urlOrigin: string;
 };
@@ -26,6 +27,8 @@ function SearchBar({ urlOrigin }: Props) {
   const [timer, setTimer] = useState(0);
   const [showSearch, setShowSearch] = useState(true);
 
+  const ref = useHideGlobal(setShowSearch);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const { data, isLoading, error } = useSWR<IAnimeObj>(
     searchTerm !== "" ? API + `?q=${searchTerm}` : null,
@@ -44,7 +47,7 @@ function SearchBar({ urlOrigin }: Props) {
   };
 
   return (
-    <div className="relative z-[100]">
+    <div ref={ref} className="relative z-[100]">
       <div className="relative flex items-center">
         <input
           onChange={onChangeSearch}
@@ -54,7 +57,7 @@ function SearchBar({ urlOrigin }: Props) {
           className=" w-full rounded-b-sm p-1  shadow-sm shadow-gray-300 outline-none sm:w-96 sm:pr-7"
         />
         <MagnifyingGlassIcon
-          onClick={() => setShowSearch((state) => !state)}
+          // onClick={() => setShowSearch((state) => !state)}
           className="absolute right-0 hidden h-7 cursor-pointer   self-center text-black sm:block"
         ></MagnifyingGlassIcon>
       </div>
