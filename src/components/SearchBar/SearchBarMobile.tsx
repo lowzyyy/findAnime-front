@@ -11,7 +11,7 @@ function SearchBarMobile({ urlOrigin }: Props) {
   return (
     <div ref={ref} className="">
       <div
-        className={`fixed right-10 top-4 ${showSearch ? "hidden" : "block"}`}
+        className={`fixed right-[4%] top-4 ${showSearch ? "hidden" : "block"}`}
       >
         <MagnifyingGlassIcon className=" h-7 cursor-pointer    text-white"></MagnifyingGlassIcon>
       </div>
