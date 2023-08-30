@@ -36,6 +36,7 @@ const genreNames = await getGenreNames(
   Astro.url.searchParams.getAll("genres")[0],
   myAPI
 );
+console.log(genreNames);
 ---
 
 <Layout title="Anime genre">
